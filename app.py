@@ -2,6 +2,8 @@ from flask import Flask, render_template, request
 import asyncio
 from mcp.server.fastmcp import FastMCP
 import httpx
+import os 
+port=os.getenv("PORT")
 
 # Import your MCP tools
 from server.mcp import getproduct, gettop3  # Adjust import based on your actual filename
@@ -24,4 +26,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0",port=port)
