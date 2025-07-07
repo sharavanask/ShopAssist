@@ -6,7 +6,7 @@ import os
 load_dotenv()
 
 
-mcp=FastMCP("shop") 
+mcp=FastMCP("shopassist") 
 
 GROQ_BASE_URL = "https://api.groq.com/openai/v1"
 MODEL_NAME = "meta-llama/llama-4-scout-17b-16e-instruct" 
@@ -44,7 +44,7 @@ async def getproduct(
     accodrding to the input given by the user"""
     url = "https://real-time-amazon-data.p.rapidapi.com/search"
     headers = {
-        "x-rapidapi-key": "32a5fdda02msh4529745102a5282p10503djsnbf35a677cb0f",
+        "x-rapidapi-key": X_RAPIDAPI_KEY,
 	    "x-rapidapi-host": "real-time-amazon-data.p.rapidapi.com"
     }
     params={
@@ -61,10 +61,11 @@ async def getproduct(
         response.raise_for_status
         data=response.json()
         products=data.get("data",{}).get("products",[])
+        # return products
     summary=[]
     for i in products[:15]:
         summary.append(summarize_product(i,1))
-    # return "\n\n".join(summary)
+    summary="\n\n".join(summary)
     finalrespone=await gettop3(summary,specific_features)
     return finalrespone
 
@@ -94,7 +95,7 @@ Your task is to:
 2️⃣ Carefully consider the **user's specific requirements**:  
 {specific_features}
 
-3️⃣ Create a clear, structured comparison covering:
+3️⃣ Create a clear, structured comparison covering in a table format or image format:
    - Product Names along with url of the product
    - Key Specifications
    - Pros and Cons for each
@@ -173,7 +174,7 @@ async def gettop3(summary:str,specific_features:str="")->str:
 async def getproductdetails(asin:str)->str:
     """This tool helps in getting the product details and specification of the particular product
 
-    """
+    """     
     url="https://real-time-amazon-data.p.rapidapi.com/product-details"
 
     headers = {
@@ -194,8 +195,6 @@ async def getproductdetails(asin:str)->str:
         return summarize_product(product,2)
     
 
-
-
-
-
-
+if __name__ == "__main__":
+    mcp.run()
+    
