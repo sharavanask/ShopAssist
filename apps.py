@@ -37,7 +37,6 @@ header[data-testid="stHeader"] {
     height: 0 !important;
     position: fixed !important;
     top: -100px !important;
-    display: none !important;
 }
 
 /* Target the main toolbar container */
@@ -121,10 +120,6 @@ button[kind="header"]:active {
   box-shadow: 0 3px 6px rgba(30, 126, 52, 0.4) !important;
 }
 /* Hide the entire header section */
-.stApp > header,
-.stApp > div:first-child > div:first-child > div:first-child {
-    display: none !important;
-}
 
 /* Remove any remaining white backgrounds */
 * {
@@ -142,9 +137,6 @@ button[kind="header"]:active {
     color: var(--text-primary) !important;
 }
 
-/* Hide any remaining Streamlit chrome */
-[data-testid="stAppViewContainer"] > div:first-child {
-    display: none !important;
 }
 /* Root variables */
 :root {
